@@ -16,19 +16,20 @@ class AuthorSeeder extends Seeder
     public function run(Faker $faker)
     {
 
-        $faker->addProvider(new WW\Faker\Provider\Picture($faker));
+        for($i = 0; $i < 10; $i++) {
 
-        $author = new Author();
-        $author->name = 'John';
-        $author->lastname = 'Doe';
-        $author->email = 'johndoe@example.com';
-        $author->save();
+            $author = new Author();
+            $author->name = $faker->firstName();
+            $author->lastname = $faker->lastName();
+            $author->email = $faker->email();
+            $author->save();
 
-        $authorDetail = new AuthorDetail();
-        $authorDetail->bio = 'lorem ipsum';
-        $authorDetail->website = 'http://example.com'; ;
-        $authorDetail->pic = $faker->pictureUrl(250, 250);
+            $authorDetail = new AuthorDetail();
+            $authorDetail->bio = $faker->text();
+            $authorDetail->website = $faker->url();
+            $authorDetail->pic = 'https://picsum.photos/seed/' . rand(0, 1000) .  '/200/300';
 
-        $author->detail()->save($authorDetail);
+            $author->detail()->save($authorDetail);
+        }
     }
 }
