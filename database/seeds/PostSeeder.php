@@ -5,6 +5,8 @@ use Faker\Generator as Faker;
 use App\Author;
 use App\AuthorDetail;
 use App\Post;
+use App\Comment;
+
 
 
 class PostSeeder extends Seeder
@@ -43,6 +45,15 @@ class PostSeeder extends Seeder
                 $post->title = $faker->text(20);
                 $post->body = $faker->text(1000);
                 $author->posts()->save($post);
+            }
+
+            // Comments
+
+            for ($c = 0; $c < rand(2, 5); $c++) {
+                $comment = new Comment();
+                $comment->comment = $faker->text();
+                $comment->posted_on = $faker->datetime();
+                $post->comments()->save($comment);
             }
 
         }
