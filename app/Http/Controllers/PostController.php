@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use App\Author;
 
 class PostController extends Controller
 {
@@ -15,6 +16,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
+
         return view('post.index', compact('posts'));
     }
 
@@ -25,7 +27,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $authors = Author::all();
+        return view('post.create', compact('authors'));
     }
 
     /**
@@ -36,7 +39,24 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validatePost($request);
+
+        $data = $request->all();
+
+        //Check if author_id exists
+
+        $author_id = $data['author_id'];
+        if (!Author::find($author_id)) {
+            dd('error');
+            //return redirect()->route('posts.error'); <- should be created this page to manage the error
+        }
+
+        $post = new Post();
+        $post->fill($data);
+        $post->save();
+        $authorsOrdered = Author::orderBy('id', 'asc')->first();
+
+        return redirect()->route('posts.index', $authorsOrdered);
     }
 
     /**
@@ -83,4 +103,15 @@ class PostController extends Controller
     {
         //
     }
+
+    private function validatePost(Request $request)
+    {
+
+        $request->validate([
+            "title" => 'required|max:50',
+            "body" => 'required|max:65000'
+        ]);
+
+    }
+
 }
