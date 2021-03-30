@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Author;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -27,8 +28,12 @@ class PostController extends Controller
      */
     public function create()
     {
+        // $post = Post::find(1);
+        // dd($post->tags);
+
         $authors = Author::all();
-        return view('post.create', compact('authors'));
+        $tags = Tag::all();
+        return view('post.create', compact('authors', 'tags'));
     }
 
     /**
@@ -43,6 +48,8 @@ class PostController extends Controller
 
         $data = $request->all();
 
+        // dd($data);
+
         //Check if author_id exists
 
         $author_id = $data['author_id'];
@@ -51,12 +58,22 @@ class PostController extends Controller
             //return redirect()->route('posts.error'); <- should be created this page to manage the error
         }
 
+        $finalArrayTags = $data['tags'];
+        $allTags = Tag::all();
+        foreach ($allTags as $tag) {
+            if(stripos($data['body'], $tag->name) !== false) {
+                $finalArrayTags[] = $tag->id;
+            }
+        }
+
         $post = new Post();
         $post->fill($data);
         $post->save();
-        $authorsOrdered = Author::orderBy('id', 'asc')->first();
 
-        return redirect()->route('posts.index', $authorsOrdered);
+        $post->tags()->attach($finalArrayTags);
+
+
+        return redirect()->route('posts.index');
     }
 
     /**

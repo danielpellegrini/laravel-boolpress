@@ -31,6 +31,21 @@
                 <label for="body">Example textarea</label>
                 <textarea class="form-control" id="body" name="body" rows="6"></textarea>
             </div>
+
+            {{-- checkbox for TAGS --}}
+            @foreach ($tags as $tag)
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="{{$tag->id}}" name="tags[]" id="tags">
+
+                    <label class="tags" for="tags[]">
+                        {{ $tag->name }}
+                    </label>
+                </div>
+
+            @endforeach
+
+            {{-- buttons --}}
             <a href="{{ route('posts.index') }}"
                 class="btn btn-secondary">
                 <i class="fas fa-plus"> Back to all posts </i>
