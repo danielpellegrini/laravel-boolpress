@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Author;
+use App\Mail\PostCreated;
 use App\Tag;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -72,6 +74,8 @@ class PostController extends Controller
 
         $post->tags()->attach($finalArrayTags);
 
+        $newMail = new PostCreated($post);
+        Mail::to('john.doe@mail.com')->send($newMail);
 
         return redirect()->route('posts.index');
     }
