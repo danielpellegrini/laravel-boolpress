@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
 <div class="container">
 
     <table class="table">
@@ -12,6 +14,7 @@
                 <th scope="col">Body</th>
                 <th scope="col">Author</th>
                 <th scope="col">Tags</th>
+                <th scope="col">Image</th>
 
             </tr>
         </thead>
@@ -25,11 +28,12 @@
                 <td>{{$post->author->name}} {{$post->author->lastname}}</td>
                 @foreach ($post->tags as $tag)
 
-                    <td>
-                        {{$tag->name}}
-                    </td>
+                <td>
+                    {{$tag->name}}
+                </td>
 
                 @endforeach
+                <td><img style="max-width: 200px" src="{{ asset($post->img) }}"></td>
             </tr>
 
             @endforeach

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'body', 'author_id'];
+    protected $fillable = ['title', 'body', 'author_id','img'];
 
     // reletionships
     public function author()
@@ -24,5 +24,7 @@ class Post extends Model
     {
         return $this->belongsToMany('App\Tag');
     }
+
+
 
 }

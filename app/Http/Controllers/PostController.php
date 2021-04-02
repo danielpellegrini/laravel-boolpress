@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Author;
+use App\Comment;
 use App\Mail\PostCreated;
 use App\Tag;
 use Illuminate\Support\Facades\Mail;
@@ -49,6 +50,9 @@ class PostController extends Controller
         $this->validatePost($request);
 
         $data = $request->all();
+        $path = $request->file('picture')->store('public');
+
+        // dd($path);
 
         // dd($data);
 
@@ -70,6 +74,7 @@ class PostController extends Controller
 
         $post = new Post();
         $post->fill($data);
+        $post->img = $path;
         $post->save();
 
         $post->tags()->attach($finalArrayTags);
@@ -130,7 +135,7 @@ class PostController extends Controller
 
         $request->validate([
             "title" => 'required|max:50',
-            "body" => 'required|max:65000'
+            "body" => 'required|max:1000'
         ]);
 
     }

@@ -60,18 +60,18 @@
             <div class="col-lg-8">
 
                 <!-- Title -->
-                <h1 class="mt-4"> </h1>
+                <h1 class="mt-4"> Boolpress </h1>
 
                 <!-- Author -->
-                <p class="lead">
+                {{-- <p class="lead">
                     by
                     <a href="#">Start Bootstrap</a>
-                </p>
+                </p> --}}
 
             <hr>
 
             <!-- Date/Time -->
-            <p>Posted on January 1, 2019 at 12:00 PM</p>
+            <p>Posted on </p>
 
             <hr>
 

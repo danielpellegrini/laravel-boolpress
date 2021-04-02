@@ -40,12 +40,12 @@ class PostSeeder extends Seeder
 
             // Posts
 
-            for ($p = 0; $p < rand(2, 5); $p++) {
-                $post = new Post();
-                $post->title = $faker->text(20);
-                $post->body = $faker->text(1000);
-                $author->posts()->save($post);
-            }
+            // for ($p = 0; $p < rand(2, 5); $p++) {
+            //     $post = new Post();
+            //     $post->title = $faker->text(20);
+            //     $post->body = $faker->text(1000);
+            //     $author->posts()->save($post);
+            // }
 
             // Comments
 
@@ -53,7 +53,7 @@ class PostSeeder extends Seeder
                 $comment = new Comment();
                 $comment->comment = $faker->text();
                 $comment->posted_on = $faker->datetime();
-                $post->comments()->save($comment);
+                // $post->comments()->save($comment);
             }
 
         }

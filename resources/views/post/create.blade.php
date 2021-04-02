@@ -6,7 +6,7 @@
 <div class="container">
         {{-- @dump($author) --}}
 
-        <form action="{{ route('posts.store') }}" method="post">
+        <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('POST')
 
@@ -46,6 +46,11 @@
             @endforeach
 
             {{-- buttons --}}
+            <div class="form-group">
+                <label for="picture">Coose a file</label>
+                <input type="file" name="picture" id="picture" class="form-control-file">
+
+            </div>
             <a href="{{ route('posts.index') }}"
                 class="btn btn-secondary">
                 <i class="fas fa-plus"> Back to all posts </i>
